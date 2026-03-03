@@ -12,7 +12,12 @@ if (!supabaseUrl || !supabaseAnon) {
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnon);
+// 빌드 타임(SSR 프리렌더링)에 환경변수가 없어도 createClient가 예외를 던지지 않도록
+// 플레이스홀더를 사용합니다. 실제 DB 요청은 런타임에만 발생합니다.
+export const supabase = createClient(
+  supabaseUrl  || "https://placeholder.supabase.co",
+  supabaseAnon || "placeholder-anon-key"
+);
 
 // ─── 테이블 타입 ──────────────────────────────────────────────────────────
 export interface FaceUser {
