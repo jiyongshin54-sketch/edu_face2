@@ -63,7 +63,7 @@ export async function registerFace(
       .single();
 
     if (error) throw error;
-    return { success: true, user: data as FaceUser };
+    return { success: true, user: data as FaceUser, configError: false };
   } catch (err: unknown) {
     const raw = err as { code?: string; message?: string; status?: number };
     const isTableMissing =
